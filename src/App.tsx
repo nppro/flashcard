@@ -1,58 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {BrowserRouter as Router, NavLink, Route, Routes} from 'react-router-dom';
+import ROUTES from './app/routes';
+import Topic from './features/topics/Topic';
+import Topics from './features/topics/Topics';
+import NewTopicForm from './components/NewTopicForm';
+import Quizzes from './features/quizzes/Quizzes';
+import Quiz from './features/quizzes/Quiz';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to={ROUTES.topicsRoute()}>
+              Topics
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={ROUTES.quizzesRoute()}>
+              Quizzes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={ROUTES.newQuizRoute()}>
+              New Quiz
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path='topics' element={<Topics/>} />
+        <Route path='topics/:topicId' element={<Topic />}/>
+        <Route path='topics/new' element={<NewTopicForm />}/>
+        <Route path='quizzes' element={<Quizzes />} />
+        <Route path='quizzes/:id' element={<Quiz />}/>
+        <Route path='quizzes/new' element={<NewTopicForm />}/>
+      </Routes>
+    </Router>
   );
 }
+
 
 export default App;

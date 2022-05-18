@@ -1,2 +1,1 @@
-# flashcard
-Flash Card application 
+## FlashCard

@@ -5,6 +5,7 @@ import Topics from './features/topics/Topics';
 import NewTopicForm from './components/NewTopicForm';
 import Quizzes from './features/quizzes/Quizzes';
 import Quiz from './features/quizzes/Quiz';
+import NewQuizForm from './components/NewQuizForm';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
         <Route path='topics/new' element={<NewTopicForm />}/>
         <Route path='quizzes' element={<Quizzes />} />
         <Route path='quizzes/:id' element={<Quiz />}/>
-        <Route path='quizzes/new' element={<NewTopicForm />}/>
+        <Route path='quizzes/new' element={<NewQuizForm />}/>
       </Routes>
     </Router>
   );

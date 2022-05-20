@@ -5,7 +5,7 @@ export interface ITopic {
     id: string;
     name: string;
     icon: string;
-    quizIds: Array<String>;
+    quizIds: Array<string>;
 }
 
 export interface TopicState {
@@ -24,6 +24,10 @@ const topicsSlice = createSlice({
     reducers: {
         addTopic: (state, action: PayloadAction<ITopic>) => {
             state.topics[action.payload.id] = action.payload;
+        },
+        addQuizIdForTopic: (state, action: PayloadAction<{ topicId: string, quizId: string }>) => {
+            const { topicId, quizId } = action.payload;
+            state.topics[topicId].quizIds.push(quizId);
         }
     }
 });
@@ -31,5 +35,5 @@ const topicsSlice = createSlice({
 // Selector
 export const selectTopics = (state: RootState) => state.topics.topics;
 
-export const { addTopic } = topicsSlice.actions;
+export const { addTopic, addQuizIdForTopic } = topicsSlice.actions;
 export default topicsSlice.reducer;

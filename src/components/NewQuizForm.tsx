@@ -5,7 +5,7 @@ import { addQuizForTopicId, IQuiz } from '../features/quizzes/quizzesSlice';
 import { ITopic, selectTopics } from '../features/topics/topicsSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ROUTES from '../app/routes';
-import { ICard } from '../features/cards/cardsSlice';
+import { addCard, ICard } from '../features/cards/cardsSlice';
 
 function NewQuizForm() {
   const [name, setName] = useState('');
@@ -22,11 +22,19 @@ function NewQuizForm() {
       return;
     }
 
+    //Cards
+    const cardIds: Array<string> = [];
+    cards.forEach((card: ICard, idx) => {
+      const id = uuidv4();
+      cardIds.push(id);
+      dispatch(addCard({...card, id}))
+    });
+
     const quiz: IQuiz = {
         id: uuidv4(),
         name,
         topicId,
-        cardIds: []
+        cardIds
     }
 
     dispatch(addQuizForTopicId(quiz));
@@ -35,8 +43,20 @@ function NewQuizForm() {
   };
 
   const addCardInputs = (e: React.MouseEvent) => {
-    console.log('----CLICK TO ADD CARD----', e);
+    e.preventDefault();
+    setCards(cards.concat({id: "", front: "", back: ""}));
   };
+
+  const removeCard = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    setCards(cards.filter((card, i) => index !== i));
+  }
+
+  const updateCardState = (index:number, side: 'front' | 'back' , value: string) => {
+    const newCards = cards.slice();
+    newCards[index][side] = value;
+    setCards(newCards);
+  } 
 
   return (
     <section>
